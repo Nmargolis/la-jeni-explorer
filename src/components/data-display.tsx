@@ -1,14 +1,43 @@
-import { JeniZip, LevelList } from "@/types/jeni";
+import { colorMaps } from "@/constants/categories";
+import { Category, CategoryType } from "@/types/categories";
+import { JeniZip } from "@/types/jeni";
 
 export interface DataDisplayProps {
   selectedZip: JeniZip | undefined;
-  levels: LevelList;
 }
 
-export function DataDisplay({ selectedZip, levels }: DataDisplayProps) {
+export interface DisplayItemProps {
+  label: string;
+  percentile: number;
+  category: Category;
+  type: CategoryType;
+}
+export function DisplayItem({
+  label,
+  percentile,
+  category,
+  type,
+}: DisplayItemProps) {
+  return (
+    <p className="my-2">
+      {label}: {percentile.toFixed(2)} |{" "}
+      <span
+        style={{
+          backgroundColor: colorMaps[type][category],
+          padding: ".25rem",
+          borderRadius: ".25rem",
+        }}
+      >
+        {category}
+      </span>
+    </p>
+  );
+}
+
+export function DataDisplay({ selectedZip }: DataDisplayProps) {
   // TODO: set a default zip to display
   if (!selectedZip)
-    return <div className="block w-full bg-slate-50 min-h-80 p2 mb-8"></div>;
+    return <div className="block w-full bg-slate-50 min-h-80 p-3 mb-8"></div>;
   const {
     zip,
     jenicategory,
@@ -21,27 +50,36 @@ export function DataDisplay({ selectedZip, levels }: DataDisplayProps) {
     riskpctl,
   } = selectedZip;
 
-  const jeniCategoryInfo = levels.find(({ level }) => level === jenicategory);
-
-  console.log({ jeniCategoryInfo });
   return (
-    <div className="block w-full bg-slate-50 min-h-80 p2 mb-8">
-      <h2>Zipcode: {zip}</h2>
+    <div className="block w-full bg-slate-50 min-h-80 p-3 mb-8">
+      <h2 className="font-bold">Zipcode: {zip}</h2>
+      {/* TODO: extract these into components */}
       {/* TODO: explain when hovering over title */}
-      {jeniCategoryInfo && (
-        <p>
-          JENI Percentile: {jenipctl} |{" "}
-          <span
-            style={{
-              backgroundColor: jeniCategoryInfo.color,
-              padding: ".25rem",
-              borderRadius: ".25rem",
-            }}
-          >
-            {jenicategory}
-          </span>
-        </p>
-      )}
+      <DisplayItem
+        label="JENI Percentile"
+        percentile={jenipctl}
+        category={jenicategory}
+        type="JENI"
+      />
+      <h3 className="font-bold">Components</h3>
+      <DisplayItem
+        label="System Involvement"
+        percentile={systempctl}
+        category={systemcategory}
+        type="SYSTEM_INVOLVEMENT"
+      />
+      <DisplayItem
+        label="Inequity Drivers"
+        percentile={driverspctl}
+        category={driverscategory}
+        type="INEQUITY_DRIVERS"
+      />
+      <DisplayItem
+        label="Criminalization Risk"
+        percentile={riskpctl}
+        category={riskcategory}
+        type="CRIMINALIZATION_RISK"
+      />
     </div>
   );
 }

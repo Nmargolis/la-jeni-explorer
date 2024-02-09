@@ -1,22 +1,29 @@
-import { LevelList } from "@/types/jeni";
+import { colorMaps } from "@/constants/categories";
+import { CategoryList, CategoryType } from "@/types/categories";
 
 export interface LegendProps {
-  levels: LevelList;
+  categories: CategoryList;
+  selectedType: CategoryType;
 }
-export default function Legend({ levels }: LegendProps) {
+export default function Legend({
+  categories,
+  selectedType = "JENI",
+}: LegendProps) {
   return (
-    <div className="block w-full bg-slate-50 min-h-80 p2">
+    <div className="block w-full bg-slate-50 p-3">
+      <h2 className="font-bold">Legend</h2>
       <ul>
         {/* TODO: make constant */}
-        {levels.map((levelItem) => {
-          const { level, description, color } = levelItem;
+        {categories.map((categoryItem) => {
+          const { category, description } = categoryItem;
+          const color = colorMaps[selectedType][category];
           return (
             <li
               className="my-3 flex flex-row items-baseline"
-              key={`legend-square-${level}`}
+              key={`legend-square-${category}`}
             >
               <span
-                className="block w-3 h-3 mr-3`"
+                className="block w-4 h-4 mr-3`"
                 // TODO: figure out the Tailwind way to do this
                 style={{
                   backgroundColor: color,
@@ -26,7 +33,7 @@ export default function Legend({ levels }: LegendProps) {
                 }}
               ></span>
               <span className="text-slate-800">
-                {level} {` (${description}`}
+                {category} {` (${description}`}
               </span>
             </li>
           );
