@@ -1,5 +1,5 @@
 import { colorMaps } from "@/constants/categories";
-import { Category, CategoryType } from "@/types/categories";
+import { Category, IndexType } from "@/types/categories";
 import { JeniZip } from "@/types/jeni";
 
 export interface DataDisplayProps {
@@ -10,7 +10,7 @@ export interface DisplayItemProps {
   label: string;
   percentile: number;
   category: Category;
-  type: CategoryType;
+  type: IndexType;
 }
 export function DisplayItem({
   label,
@@ -37,7 +37,11 @@ export function DisplayItem({
 export function DataDisplay({ selectedZip }: DataDisplayProps) {
   // TODO: set a default zip to display
   if (!selectedZip)
-    return <div className="block w-full bg-slate-50 min-h-80 p-3 mb-8"></div>;
+    return (
+      <div className="block w-full bg-slate-50/90 min-h-80 p-3 mb-8">
+        Select a zip code to see JENI info.
+      </div>
+    );
   const {
     zip,
     jenicategory,
@@ -51,7 +55,7 @@ export function DataDisplay({ selectedZip }: DataDisplayProps) {
   } = selectedZip;
 
   return (
-    <div className="block w-full bg-slate-50 min-h-80 p-3 mb-8">
+    <div className="block w-full bg-slate-50/90 min-h-80 p-3 mb-8">
       <h2 className="font-bold">Zipcode: {zip}</h2>
       {/* TODO: extract these into components */}
       {/* TODO: explain when hovering over title */}

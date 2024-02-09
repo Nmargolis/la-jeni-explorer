@@ -7,7 +7,7 @@ type CategoryInfo = {
 
 export type CategoryList = Array<CategoryInfo>;
 
-export type CategoryType =
+export type IndexType =
   | "JENI"
   | "SYSTEM_INVOLVEMENT"
   | "INEQUITY_DRIVERS"

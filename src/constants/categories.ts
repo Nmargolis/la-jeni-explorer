@@ -1,4 +1,4 @@
-import { Category, CategoryList, CategoryType } from "@/types/categories";
+import { Category, CategoryList, IndexType } from "@/types/categories";
 
 export const categoryDescriptions: CategoryList = [
   { category: "Lowest", description: "0-19th Percentile" },
@@ -7,6 +7,13 @@ export const categoryDescriptions: CategoryList = [
   { category: "High", description: "60-79th Percentile" },
   { category: "Highest", description: "80-100th Percentile" },
 ];
+
+export const indexTypeToPropertyMap: Record<IndexType, string> = {
+  JENI: "jenicategory",
+  SYSTEM_INVOLVEMENT: "systemcategory",
+  INEQUITY_DRIVERS: "driverscategory",
+  CRIMINALIZATION_RISK: "riskcategory",
+};
 
 export const jeniColorMap: Record<Category, string> = {
   Lowest: "#fee5d9",
@@ -47,4 +54,5 @@ export const colorMaps = {
   CRIMINALIZATION_RISK: criminalizationRiskColorMap,
 };
 
+// TODO: move to types
 export type ColorMaps = typeof colorMaps;

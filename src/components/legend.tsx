@@ -1,16 +1,16 @@
 import { colorMaps } from "@/constants/categories";
-import { CategoryList, CategoryType } from "@/types/categories";
+import { CategoryList, IndexType } from "@/types/categories";
 
 export interface LegendProps {
   categories: CategoryList;
-  selectedType: CategoryType;
+  selectedIndex: IndexType;
 }
 export default function Legend({
   categories,
-  selectedType = "JENI",
+  selectedIndex: selectedType = "JENI",
 }: LegendProps) {
   return (
-    <div className="block w-full bg-slate-50 p-3">
+    <div className="block w-full bg-slate-50/90 p-3">
       <h2 className="font-bold">Legend</h2>
       <ul>
         {/* TODO: make constant */}
