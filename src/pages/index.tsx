@@ -14,7 +14,7 @@ export default function Home() {
     <main className="block text-slate-800">
       <MbxMap setSelectedZip={setSelectedZip} levels={LEVELS} />
       <Sidebar>
-        <DataDisplay selectedZip={selectedZip}></DataDisplay>
+        <DataDisplay selectedZip={selectedZip} levels={LEVELS}></DataDisplay>
         <Legend levels={LEVELS}></Legend>
       </Sidebar>
     </main>
